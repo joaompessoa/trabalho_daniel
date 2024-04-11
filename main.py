@@ -1,43 +1,19 @@
 import re
 
-def monolithic_search(csv_file):
-    count = 0
-    with open(csv_file, 'r') as file:
-        next(file)  # Pula o cabeçalho
-        for line in file:
-            if re.search(r'Season 2$', line.strip()):
-                count += 1
-    return count
 
-def iterative_search(csv_file):
-    count = 0
-    with open(csv_file, 'r') as file:
-        next(file)  # Pula o cabeçalho
-        for line in file:
-            if re.search(r'Season 2$', line.strip()):
-                count += 1
-    return count
-
-def recursive_search(file, count=0):
-    line = file.readline()
-    if not line:
-        return count
-    if re.search(r'Season 2$', line.strip()):
-        count += 1
-    return recursive_search(file, count)
-
-
-def contar_monolitico(csv_file):
-    count = 0
-    with open(csv_file, 'r') as file:
+def contar_monolitico(csv_file, coluna, palavra):
+    files = open(csv_file,'r')
+    files.readline
+    for file in files.readlines():
+        print(file)
         headers = next(file).strip().split(',')
-        title_index = headers.index('title')  # Encontra o índice da coluna 'title'
-        
+        title_index = headers.index(coluna)
         for line in file:
             columns = line.strip().split(',')
             title = columns[title_index]
-            if re.search(r'Season 2', title, re.IGNORECASE):  # Busca por 'Season 2' ignorando maiúsculas e minúsculas
-                count = count +  1
+            if re.search(fr'{palavra}', title, re.IGNORECASE):
+                count += 1
+    files.close()
     return count
 
 def contar_interativo(csv_file,coluna,palavra):
@@ -87,13 +63,13 @@ def contar_recursivo(csv_file, coluna, palavra):
 
 # Carregar dados e aplicar a função
 if __name__ == "__main__":
-    dados = 'backup.csv'
-    coluna = 'id'
-    palavra = '2'
-    total = contar_interativo('backup.csv','id','2')
+    dados = 'main_Full_data.csv'
+    coluna = 'title'
+    palavra = 'Season 2'
+    total = contar_interativo(dados,coluna,palavra)
     total_recursivo = contar_recursivo(dados,coluna,palavra)
 
     print(f"Numero de entradas em {dados} que contem a palavra: {palavra} na coluna: {coluna} e: {total}")
-    print(total_recursivo)
+    print(f"Numero de Entradas pelo metodo Recursivo: {total_recursivo}")
     
 
