@@ -31,7 +31,7 @@ def contar_interativo(csv_file,coluna,palavra):
             for line in file:
                 colums = line.strip().split(',')
                 title = colums[title_index]
-                if re.search(fr'{palavra}', title, re.IGNORECASE):  # Busca por 'Season 2' ignorando maiúsculas e minúsculas
+                if re.search(fr'{palavra}', title, re.IGNORECASE): 
                     count += 1
         return count
     return contador(palavra,coluna)
@@ -51,7 +51,7 @@ def contar_interativo_errado(csv_file,coluna,palavra):
             for line in file:
                 colums = line.strip().split(',')
                 title = colums[title_index]
-                if re.search(fr'{palavra}', title):  # Busca por 'Season 2' ignorando maiúsculas e minúsculas
+                if re.search(fr'{palavra}', title):  
                     count += 1
         return count
     return contador(palavra,coluna)
