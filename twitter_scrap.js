@@ -1,6 +1,28 @@
 const puppeteer = require('puppeteer');
 const RE_FOLLOWERS_SHORT = /\d+(?:\.\d+[MK]|,\d+|[MK])?/;
 
+/* \d+: Um ou mais dígitos.
+  \.\d+[MK]: Um ponto, seguido por um ou mais dígitos e terminando com 'M' ou 'K'.
+  ,\d+: Uma vírgula seguida por um ou mais dígitos.
+  [MK]: 'M' ou 'K'. 
+
+ {w | w é uma sequência que começa com um ou mais dígitos (\d+), 
+  seguidos opcionalmente por uma subpalavra que pode ser um ponto seguido de dígitos e um 
+  'M' ou 'K' (\.\d+[MK]), 
+  ou uma vírgula seguida de dígitos (,\d+),
+   ou simplesmente termina com 'M' ou 'K' ([MK])}." */
+
+   const regra = `((0|1|2|3|4|5|6|7|8|9)* | (. | ,) |
+   (0|1|2|3|4|5|6|7|8|9)* | (M | K) | (. | ,) | 
+   (0|1|2|3|4|5|6|7|8|9)* 
+   | (M | K))* `
+
+let valid_entryA = '12345'
+let valid_entryB = '1,2M'
+let valid_entryC = '1.2K'
+let valid_entryD = '1,234,567'
+let valid_entryE = '1.234.567'
+
 class ParseError extends Error {}
 
 async function getTwitterFollowers(handles) {
